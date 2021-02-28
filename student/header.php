@@ -8,6 +8,12 @@
     if (!isset($_SESSION['student_login'])) {
         header('location: sign-in.php');
     }
+
+    $student_login = $_SESSION['student_login'];
+    $query = "SELECT * FROM `students` WHERE `email` = '$student_login'";
+    $data = mysqli_query($conn, $query);
+
+    $Student_info = mysqli_fetch_assoc($data);
 ?>
 
 
@@ -144,7 +150,7 @@
                         <img alt="profile photo" src="../assets/images/avatar/avatar_user.jpg" />
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jane Doe</span>
+                        <span class="user-name"><?= ucwords($Student_info['fname'] ) . ' ' . ucwords($Student_info['lname']) ?></span>
                         <span class="user-profile">Student</span>
                     </div>
                     <i class="fa fa-plus icon-open" aria-hidden="true"></i>
